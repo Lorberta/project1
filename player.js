@@ -24,102 +24,62 @@ class Player {
         // this.frame_index = frame_set; //current animation frame set that holds sprite tile values
 
     };
-    //change the current animation frame set, e.g. from [0,1] to [2,3] and sets the delay
-    // change(frame_set, delay = 15) {
-    //     if(this.frame_set != frame_set){
-    //         this.count = 0; //count reset
-    //         // this.delay = delay; //setting delay
-    //         // this.frame_index = 0; //starting with the first frame 
-    //         // this.frame_set = this.frame_set[this.frame_index]; //set the new frame value
+
+    // moveleft
+    // moveright
+    // jumping
+
+}
+
+draw() {
+    this.ctx.fillStyle = '#FFFF00',
+        this.ctx.beginPath();
+    this.ctx.rect(this.x, this.y, this.width, this.height);
+    this.ctx.fill();
+}
+};
+    // }
+    // update() {
+    //     if (this.controller.up && this.jumping == false) {
+    //         console.log("jumping from update")
+    //         this.y_velocity -= 20;
+    //         this.jumping = true;
+    //     }
+    //     if (this.controller.left) {
+    //         console.log("left from update")
+
+    //         this.x_velocity -= 0.5;
+    //     }
+    //     if (this.controller.right) {
+    //         console.log("right from update")
+
+    //         this.x_velocity += 0.5;
     //     }
 
-    // }
-    update() {
-        if (this.controller.up && this.jumping == false) {
-            console.log("jumping from update")
-            this.y_velocity -= 20;
-            this.jumping = true;
-        }
-        if (this.controller.left) {
-            console.log("left from update")
+    //     //gravity:
+    //     this.y_velocity += 1.5;
+    //     this.x += this.x_velocity;
+    //     this.y += this.y_velocity;
+    //     //friction in -x and x
+    //     this.x_velocity *= 0.9;
+    //     this.y_velocity *= 0.9;
 
-            this.x_velocity -= 0.5;
-        }
-        if (this.controller.right) {
-            console.log("right from update")
+    //     //border floor line
+    //     if (this.y > 180 - 16 - 32) {
+    //         this.jumping = false;
+    //         this.y = 180 - 16 - 32;
+    //         this.y_velocity = 0;
+    //     }
 
-            this.x_velocity += 0.5;
-        }
+    //     //if this goes past left border
+    //     if (this.x < -32) {
+    //         this.x = 320; //
+    //     }
+    //     //if this goes past right border
+    //     else if (this.x > 320) {
+    //         this.x = -32;
+    //     }
 
-        //gravity:
-        this.y_velocity += 1.5;
-        this.x += this.x_velocity;
-        this.y += this.y_velocity;
-        //friction in -x and x
-        this.x_velocity *= 0.9;
-        this.y_velocity *= 0.9;
-
-        //border floor line
-        if (this.y > 180 - 16 - 32) {
-            this.jumping = false;
-            this.y = 180 - 16 - 32;
-            this.y_velocity = 0;
-        }
-
-        //if this goes past left border
-        if (this.x < -32) {
-            this.x = 320; //
-        }
-        //if this goes past right border
-        else if (this.x > 320) {
-            this.x = -32;
-        }
-        // this.count++; //counting loops/cycles since last frame change
-        // if (this.count == this.delay) { //if enought cycles have passed, change the frame
-        //     this.count = 0; //reset the count
-        //if the frame set value is the last value, reset to 0. If not add 1;
-        // this.frame_index = (this.frame_index == this.frame_set.length - 1) ? 0 : this.frame_index + 1;
-        // this.frame = this.frame_set[this.frame_index]; // change the current frame value
-
-    }
-
-    draw() {
-        this.ctx.fillStyle = '#FFFF00';
-        this.ctx.beginPath();
-        this.ctx.rect(this.x, this.y, this.width, this.height);
-        this.ctx.fill();
-    }
-
-    // jumping
-    //call function left, call function right, call function up
-
-
-    controller() {
-        left = false;
-        right = false;
-        up = false;
-        keyListener = () => {
-            var key_state = (event.type == "keydown") ? true : false;
-            switch (event.keyCode) {
-                case 37: //the left arrow key
-                    console.log("left from keydown")
-
-                    this.controller.left = key_state;
-                    break;
-                case 38: //the up arrow key
-                    console.log("up from keydown")
-
-                    this.controller.up = key_state;
-                    break;
-                case 39: //the right arrow key
-                    console.log("right from keydown")
-
-                    this.controller.right = key_state;
-                    break;
-            }
-        }
-    }
-};
 
 
 

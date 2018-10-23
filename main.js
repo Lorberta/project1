@@ -24,7 +24,7 @@ function update() {
     bg.update()
     bgClouds.update()
     myObstacle.update()
-    myPlayer.draw()
+    // myPlayer.update()
 }
 
 function drawEverything() {
@@ -35,15 +35,31 @@ function drawEverything() {
     myPlayer.draw()
 }
 
+//PLAYER
+document.onkeydown = function (e) {
+    switch (e.keyCode) {
+        case 37: //the left arrow key
+            console.log("left from keydown")
 
+            break;
+        case 38: //the up arrow key
+            console.log("up from keydown")
+            break;
+        case 39: //the right arrow key
+            console.log("right from keydown")
+            break;
 
+    }
+}
 
+// alert(key.keyCode){
+// }
 
 
 //KEYLISTENER
 
-window.addEventListener("keydown", myPlayer.controller.keyListener);
-window.addEventListener("keyup", myPlayer.controller.keyListener);
+// window.addEventListener("keydown", myPlayer.controller.keyListener);
+// window.addEventListener("keyup", myPlayer.controller.keyListener);
 
 
 //OBSTACLE NOT FINISHED
