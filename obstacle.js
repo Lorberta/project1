@@ -4,14 +4,15 @@
 
 
 class Obstacle {
-    constructor(ctx, height, width, x, y, speed) {
-        this.ctx = ctx,
-            this.speed = speed
-        this.x = x,
-            this.y = y,
-            this.height = height,
-            this.width = width,
-            this.color = 'white'
+    constructor(height, width, x, y, speed, ctx) {
+        this.ctx = ctx
+        this.speed = speed
+        this.x = x
+        this.y = y
+        this.height = height
+        this.width = width
+        this.color = 'white'
+        this.frames = 0
         //this.img = new Image(),
         //this.img.src = url,
     }
@@ -29,5 +30,13 @@ class Obstacle {
         //ctx.fill();
     }
 
+    // stop() {
+    //     clearInterval(this.interval);
+    // }
 }
 
+// class Cat extends Obstacle {
+
+// }
+
+//function chooseObstacle() { ... return obj; }

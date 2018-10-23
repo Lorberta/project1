@@ -6,17 +6,16 @@
 
 
 class Player {
-    constructor(height, width, x, frame_set, delay, ctx, canvas) {
-        this.height = height,
-            this.width = width,
-            this.jumping = true,
-            this.ctx = ctx,
-            this.x = x, //center of the canvas
-            this.y = canvas.height - 75,
-            this.x_velocity = 0,
-            this.y_velocity = 0,
-            this.numberOfJumps = 0
-
+    constructor(height, width, x, y, delay, ctx, canvas) {
+        this.height = height
+        this.width = width
+        this.jumping = true
+        this.ctx = ctx
+        this.x = x //center of the canvas
+        this.y = canvas.height - 75
+        this.x_velocity = 0
+        this.y_velocity = 0
+        this.numberOfJumps = 0
     }
 
     newPos() {
@@ -54,11 +53,6 @@ class Player {
 
     }
 
-    // stopMove() {
-    //     this.player.speedX = 0;
-    //     this.player.speedY = 0;
-    // }
-
 
     draw() {
         this.ctx.save();
@@ -75,7 +69,9 @@ class Player {
 
 
 
-        // this.x_velocity *= 0.9;
+        //this.x_velocity *= 0.9; --> without it the Player doesn't stop -> friction!
+        // possible solution: only use it if the player's x-coordinate is equal to this.y
+
         this.y_velocity *= 0.9;
         this.newPos()
 
@@ -86,8 +82,11 @@ class Player {
             this.y = canvas.height - 75;
             this.y_velocity = 0;
             // this.x += this.speedX;
-
         }
+        if (this.y == canvas.height - 75) {
+            this.x_velocity *= 0.9;
+        }
+
 
         //if this goes past left border
         if (this.x <= 0) {
