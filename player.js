@@ -6,79 +6,104 @@
 
 
 class Player {
-    constructor(height, width, x, frame_set, delay, ctx) {
+    constructor(height, width, x, frame_set, delay, ctx, canvas) {
         this.height = height,
             this.width = width,
             this.jumping = true,
             this.ctx = ctx,
             this.x = x, //center of the canvas
+            this.y = canvas.height - 75,
             this.x_velocity = 0,
-            this.y = 100,
             this.y_velocity = 0,
-            //this.img = new Image,
-            //this.img.src = url,
+            this.numberOfJumps = 0
 
-            this.count = 0 //counting game loop since the last change
-        // this.delay = delay; // number of game cycles to wait until the next change
-        // this.frame = 0; //value of the sprite image in the sprite sheet
-        // this.frame_index = frame_set; //current animation frame set that holds sprite tile values
+    }
 
-    };
+    newPos() {
+        this.x += this.x_velocity;
+        this.y += this.y_velocity;
+
+        //this.img = new Image,
+        //this.img.src = url,
+    }
 
     // moveleft
+    moveLeft() {
+        this.x_velocity -= 0.5;
+        this.newPos()
+    }
+
     // moveright
+    moveRight() {
+        this.x_velocity += 0.5;
+        this.newPos()
+    }
+
     // jumping
+    moveUp() {
+        this.y_velocity -= 20;
 
-}
+        this.numberOfJumps++
+        if (this.numberOfJumps >= 2) {
+            this.jumping = true;
+        } else {
+            this.jumping = false
+        }
+        // this.y_velocity += 1.5;
+        this.newPos()
 
-draw() {
-    this.ctx.fillStyle = '#FFFF00',
-        this.ctx.beginPath();
-    this.ctx.rect(this.x, this.y, this.width, this.height);
-    this.ctx.fill();
-}
-};
+    }
+
+    // stopMove() {
+    //     this.player.speedX = 0;
+    //     this.player.speedY = 0;
     // }
-    // update() {
-    //     if (this.controller.up && this.jumping == false) {
-    //         console.log("jumping from update")
-    //         this.y_velocity -= 20;
-    //         this.jumping = true;
-    //     }
-    //     if (this.controller.left) {
-    //         console.log("left from update")
 
-    //         this.x_velocity -= 0.5;
-    //     }
-    //     if (this.controller.right) {
-    //         console.log("right from update")
 
-    //         this.x_velocity += 0.5;
-    //     }
+    draw() {
+        this.ctx.save();
+        this.ctx.fillStyle = "#FF8002"
+        this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        this.ctx.restore();
+    };
 
-    //     //gravity:
-    //     this.y_velocity += 1.5;
-    //     this.x += this.x_velocity;
-    //     this.y += this.y_velocity;
-    //     //friction in -x and x
-    //     this.x_velocity *= 0.9;
-    //     this.y_velocity *= 0.9;
 
-    //     //border floor line
-    //     if (this.y > 180 - 16 - 32) {
-    //         this.jumping = false;
-    //         this.y = 180 - 16 - 32;
-    //         this.y_velocity = 0;
-    //     }
+    update() {
+        //     //gravity:
+        this.y_velocity += 1.5;
+        //friction in -x and x
 
-    //     //if this goes past left border
-    //     if (this.x < -32) {
-    //         this.x = 320; //
-    //     }
-    //     //if this goes past right border
-    //     else if (this.x > 320) {
-    //         this.x = -32;
-    //     }
+
+
+        // this.x_velocity *= 0.9;
+        this.y_velocity *= 0.9;
+        this.newPos()
+
+        //     //border floor line
+        if (this.y >= canvas.height - 75) {
+            this.jumping = false;
+            this.numberOfJumps = 0
+            this.y = canvas.height - 75;
+            this.y_velocity = 0;
+            // this.x += this.speedX;
+
+        }
+
+        //if this goes past left border
+        if (this.x <= 0) {
+            this.x = 0; //
+            this.x_velocity = 0; //
+        }
+        //if this goes past right border
+        else if (this.x + this.width >= canvas.width) {
+            this.x = canvas.width - this.width;
+            this.x_velocity = 0
+        }
+    }
+}
+
+
+
 
 
 
