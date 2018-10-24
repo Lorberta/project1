@@ -50,7 +50,6 @@ class Player {
         }
         // this.y_velocity += 1.5;
         this.newPos()
-
     }
 
 

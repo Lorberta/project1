@@ -1,4 +1,4 @@
-class Obstacle {
+class Luckstacle {
     constructor(height, width, x, y, speed, ctx) {
         this.ctx = ctx
         this.speed = speed
@@ -6,7 +6,7 @@ class Obstacle {
         this.y = y
         this.height = height
         this.width = width
-        this.color = 'white'
+        this.color = 'green'
         this.frames = 0
         this.isCrashed = false
         //this.img = new Image(),
@@ -31,7 +31,7 @@ class Obstacle {
     // }
 }
 
-// class Cat extends Obstacle {
+// class Clover extends Obstacle {
 
 // }
 

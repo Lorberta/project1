@@ -5,18 +5,77 @@ var ctx = canvas.getContext('2d')
 var width = canvas.width
 var height = canvas.height
 
+var frames = 0
+var counter = 5;
+
 var myObstacles = [];
-function randomAddAndMoveObstacles() {
-    myObstacle.frames += 1;
-    if (myObstacle.frames % 200 === 0) {
+var myLuckstacles = [];
+
+
+//BACKGROUND
+
+var bg = new Background(ctx, '../images/bg2.jpg', 1)
+var bgClouds = new Background(ctx, '../images/clouds_lg.png', 2)
+// var myObstacle = new Obstacle(20, 20, canvas.width + 1, canvas.height - 75, 3, ctx)
+// var myLuckstacle = new Luckstacle(20, 20, canvas.width + 1, 100, 3, ctx)
+var myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
+
+
+var interval = setInterval(function () {
+    update()
+    drawEverything()
+}, 1000 / 30)
+
+function update() {
+    frames++
+
+    // counter + 1. Everytime counter % 100 if math random = 1, create new obstacle. 
+    bg.update()
+    bgClouds.update()
+
+    addObstacle()
+    updateObstacles();
+    clearGoneObstacles()
+
+    addLuckstacle()
+    updateLuckstacle()
+    clearGoneLuckstacles()
+
+    myPlayer.update()
+
+    collisionPlayerAndObstacle()
+
+    gameOver()
+}
+
+function drawEverything() {
+    ctx.clearRect(0, 0, width, height)
+    bg.draw()
+    bgClouds.draw()
+    for (i = 0; i < myObstacles.length; i += 1) {
+        myObstacles[i].draw();
+    }
+    for (i = 0; i < myLuckstacles.length; i += 1) {
+        myLuckstacles[i].draw();
+    }
+    myPlayer.draw()
+}
+
+// ABOUT THE OBSTACLE ARRAY
+
+function addObstacle() {
+    if (frames % 100 === 0) {
         myObstacles.push(new Obstacle(20, 20, canvas.width + 1, canvas.height - 75, 3, ctx));
     }
+}
+
+function updateObstacles() {
     for (i = 0; i < myObstacles.length; i++) {
         myObstacles[i].x += -1;
-        //console.log(myObstacles[i].x)
         myObstacles[i].update();
     }
 }
+
 function clearGoneObstacles() {
     for (var i = 0; i < myObstacles.length; i++) {
         var currentObstacle = myObstacles[i];
@@ -27,40 +86,29 @@ function clearGoneObstacles() {
     myObstacles = myObstacles.filter(Boolean);
 }
 
-//BACKGROUND
-
-var bg = new Background(ctx, '../images/bg2.jpg', 1)
-var bgClouds = new Background(ctx, '../images/clouds_lg.png', 2)
-var myObstacle = new Obstacle(20, 20, canvas.width + 1, canvas.height - 75, 3, ctx)
-var myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
-
-
-var interval = setInterval(function () {
-    update()
-    drawEverything()
-
-}, 1000 / 30)
-
-function update() {
-    // counter + 1. Everytime counter % 100 if math random = 1, create new obstacle. 
-    bg.update()
-    bgClouds.update()
-    randomAddAndMoveObstacles()
-    clearGoneObstacles()
-    //console.log(myObstacles.length)
-    myPlayer.update()
-    collisionPlayerAndObstacle()
-}
-
-function drawEverything() {
-    ctx.clearRect(0, 0, width, height)
-    bg.draw()
-    bgClouds.draw()
-    for (i = 0; i < myObstacles.length; i += 1) {
-        myObstacles[i].draw();
+// ABOUT THE LUCKSTACLE ARRAY
+function addLuckstacle() {
+    if (counter < 6 && frames % 100 === 0) {
+        //create randomY number between 100 and 200
+        myLuckstacles.push(new Luckstacle(20, 20, canvas.width + 1, randomY, 3, ctx));
     }
-    myPlayer.draw()
 }
+function updateLuckstacle() {
+    for (i = 0; i < myLuckstacles.length; i++) {
+        myLuckstacles[i].x += -1;
+        myLuckstacles[i].update();
+    }
+}
+function clearGoneLuckstacles() {
+    for (var i = 0; i < myLuckstacles.length; i++) {
+        var currentLuckstacle = myLuckstacles[i];
+        if (currentLuckstacle.x + currentLuckstacle.width < -1) {
+            delete myLuckstacles[i];
+        }
+    }
+    myLuckstacles = myLuckstacles.filter(Boolean);
+}
+
 
 
 controller = {
@@ -90,7 +138,6 @@ controller = {
 
                     myPlayer.moveRight()
                 }
-                console.log(myPlayer.x_velocity)
                 console.log("right from keydown")
                 break;
         }
@@ -109,16 +156,29 @@ window.addEventListener("keydown", controller.keyListener);
 
 //COLLISION
 
-var counter = 5;
 function collisionPlayerAndObstacle() {
     for (var i = 0; i < myObstacles.length; i++) {
         if (((myPlayer.x + myPlayer.width) > myObstacles[i].x && myPlayer.x < (myObstacles[i].x + myObstacles[i].width)) && (myPlayer.y + myPlayer.height >= myObstacles[i].y) && !myObstacles[i].isCrashed) {
-            // || (myPlayer.x > (myObstacle.x + myObstacle.width)) && ((myPlayer.x + myPlayer.width) >= myObstacle.x)
-            counter--;
+            // || (myPlayer.x > (myObstacle.x + myObstacle.width)) && ((myPlayer.x + myPlayer.width) >= myObstacle.x) //redo collision from behind
             myObstacles[i].isCrashed = true
+            counter--;
+        }
+    }
+
+    for (var i = 0; i < myLuckstacles.length; i++) {
+        if (((myPlayer.x + myPlayer.width) > myLuckstacles[i].x && myPlayer.x < (myLuckstacles[i].x + myLuckstacles[i].width)) && (myPlayer.y + myPlayer.height >= myLuckstacles[i].y) && (myPlayer.y < (myLuckstacle.y + myLuckstacle.height)) && !myLuckstacles[i].isCrashed) {
+            // || (myPlayer.x > (myObstacle.x + myObstacle.width)) && ((myPlayer.x + myPlayer.width) >= myObstacle.x) //redo collision from behind
+            myLuckstacles[i].isCrashed = true
+            counter++;
+            console.log("crashing luckstacle", myLuckstacles[i].isCrashed, i)
         }
     }
     console.log('counter' + counter)
 }
 
 
+function gameOver() {
+    if (counter == 0) {
+        return clearInterval(interval);
+    }
+}
