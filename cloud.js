@@ -1,4 +1,4 @@
-class Obstacle {
+class Cloud {
     constructor(height, width, x, y, speed, ctx) {
         this.ctx = ctx
         this.speed = speed
@@ -6,16 +6,16 @@ class Obstacle {
         this.y = y
         this.height = height
         this.width = width
-        this.color = 'white'
+        this.color = 'yellow'
         this.frames = 0
         this.isCrashed = false
         this.img = new Image()
-        var obstaclePool = ['../images/catwalk4.png', '../images/rake1.png']
-        this.img.src = obstaclePool[Math.floor(Math.random() * obstaclePool.length)]
+        this.img.src = '../images/cloud_pink_uni_small.png'
     }
 
     update() {
         this.x -= this.speed
+        this.color = 'yellow'
     }
 
     draw() {
@@ -25,14 +25,7 @@ class Obstacle {
         //ctx.stroke();
         //ctx.fill();
     }
-
     // stop() {
     //     clearInterval(this.interval);
     // }
 }
-
-// class Cat extends Obstacle {
-
-// }
-
-//function chooseObstacle() { ... return obj; }

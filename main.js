@@ -16,9 +16,11 @@ var myLuckstacles = [];
 
 var bg = new Background(ctx, '../images/bg2.jpg', 1)
 var bgClouds = new Background(ctx, '../images/clouds_lg.png', 2)
-// var myObstacle = new Obstacle(20, 20, canvas.width + 1, canvas.height - 75, 3, ctx)
-// var myLuckstacle = new Luckstacle(20, 20, canvas.width + 1, 100, 3, ctx)
+var myCloud = new Cloud(65, 80, canvas.width + 1, 50, 5, ctx)
+var myObstacle = new Obstacle(80, 80, canvas.width + 1, canvas.height - 75, 3, ctx)
+var myLuckstacle = new Luckstacle(80, 80, canvas.width + 1, 100, 2, ctx)
 var myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
+var myPot = new Pot(30, 30, canvas.width + 1, canvas.height - 85, 1, ctx)
 
 
 var interval = setInterval(function () {
@@ -29,7 +31,6 @@ var interval = setInterval(function () {
 function update() {
     frames++
 
-    // counter + 1. Everytime counter % 100 if math random = 1, create new obstacle. 
     bg.update()
     bgClouds.update()
 
@@ -42,6 +43,13 @@ function update() {
     clearGoneLuckstacles()
 
     myPlayer.update()
+
+    if (counter >= 7 && myPot.x >= canvas.width - myPot.width) {
+        myPot.update()
+    }
+    if (counter >= 7 && myCloud.x >= canvas.width - 50) {
+        myCloud.update()
+    }
 
     collisionPlayerAndObstacle()
 
@@ -59,9 +67,11 @@ function drawEverything() {
         myLuckstacles[i].draw();
     }
     myPlayer.draw()
+    myPot.draw()
+    myCloud.draw()
 }
 
-// ABOUT THE OBSTACLE ARRAY
+//OBSTACLE ARRAY
 
 function addObstacle() {
     if (frames % 100 === 0) {
@@ -86,10 +96,12 @@ function clearGoneObstacles() {
     myObstacles = myObstacles.filter(Boolean);
 }
 
-// ABOUT THE LUCKSTACLE ARRAY
+
+// LUCKSTACLE ARRAY
 function addLuckstacle() {
-    if (counter < 6 && frames % 100 === 0) {
-        //create randomY number between 100 and 200
+    randomY = 0;
+    if (/*counter < 3 &&*/ frames % 130 === 0) {
+        randomY = Math.floor(Math.random() * 100) + 10;
         myLuckstacles.push(new Luckstacle(20, 20, canvas.width + 1, randomY, 3, ctx));
     }
 }
@@ -176,9 +188,17 @@ function collisionPlayerAndObstacle() {
     console.log('counter' + counter)
 }
 
+// END GAME OPTIONS
 
 function gameOver() {
     if (counter == 0) {
+        return clearInterval(interval);
+    }
+}
+
+function gameWon() {
+    if (((myPlayer.x + myPlayer.width) > myPot.x && myPlayer.x < (myPot.x + myPot.width)) && (myPlayer.y + myPlayer.height >= myPot.y) && !myPot.isCrashed) {
+        myPot.isCrashed = true
         return clearInterval(interval);
     }
 }
