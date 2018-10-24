@@ -13,6 +13,7 @@ class Obstacle {
         this.width = width
         this.color = 'white'
         this.frames = 0
+        this.isCrashed = false
         //this.img = new Image(),
         //this.img.src = url,
     }

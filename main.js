@@ -13,6 +13,7 @@ function randomAddAndMoveObstacles() {
     }
     for (i = 0; i < myObstacles.length; i++) {
         myObstacles[i].x += -1;
+        //console.log(myObstacles[i].x)
         myObstacles[i].update();
     }
 }
@@ -33,9 +34,11 @@ var bgClouds = new Background(ctx, '../images/clouds_lg.png', 2)
 var myObstacle = new Obstacle(20, 20, canvas.width + 1, canvas.height - 75, 3, ctx)
 var myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
 
-setInterval(function () {
+
+var interval = setInterval(function () {
     update()
     drawEverything()
+
 }, 1000 / 30)
 
 function update() {
@@ -44,8 +47,9 @@ function update() {
     bgClouds.update()
     randomAddAndMoveObstacles()
     clearGoneObstacles()
-    console.log(myObstacles.length)
+    //console.log(myObstacles.length)
     myPlayer.update()
+    collisionPlayerAndObstacle()
 }
 
 function drawEverything() {
@@ -89,7 +93,6 @@ controller = {
                 console.log(myPlayer.x_velocity)
                 console.log("right from keydown")
                 break;
-
         }
     }
 }
@@ -104,9 +107,18 @@ window.addEventListener("keydown", controller.keyListener);
 // window.addEventListener("keyup", controller.keyListener);
 
 
-//OBSTACLE NOT FINISHED
-//Arrow function => same as this: // function startGame(){}
-//startGame = () => {}
+//COLLISION
 
+var counter = 5;
+function collisionPlayerAndObstacle() {
+    for (var i = 0; i < myObstacles.length; i++) {
+        if (((myPlayer.x + myPlayer.width) > myObstacles[i].x && myPlayer.x < (myObstacles[i].x + myObstacles[i].width)) && (myPlayer.y + myPlayer.height >= myObstacles[i].y) && !myObstacles[i].isCrashed) {
+            // || (myPlayer.x > (myObstacle.x + myObstacle.width)) && ((myPlayer.x + myPlayer.width) >= myObstacle.x)
+            counter--;
+            myObstacles[i].isCrashed = true
+        }
+    }
+    console.log('counter' + counter)
+}
 
 
