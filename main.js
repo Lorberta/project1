@@ -14,6 +14,9 @@ background.src = "./images/bg2.jpg"
 var sky = new Image();
 sky.src = "./images/clouds_lg.png"
 
+
+
+
 var myObstacles = [];
 var myLuckstacles = [];
 
@@ -46,7 +49,7 @@ function update() {
     clearGoneLuckstacles()
 
     myPlayer.update()
-    //drawCounter()
+
     if (counter >= 7 && myPot.x >= canvas.width - myPot.width) {
         myPot.update()
     }
@@ -70,6 +73,12 @@ function drawEverything() {
     for (i = 0; i < myLuckstacles.length; i += 1) {
         myLuckstacles[i].draw();
     }
+
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "orange"
+    ctx.fillText("LUCK" + counter, 10, 50);
+
+
     myPlayer.draw()
     myPot.draw()
     myCloud.draw()
@@ -156,9 +165,6 @@ controller = {
         }
     }
 }
-// document.onkeyup = function (e) {
-//     stopMove();
-// }
 
 
 //KEYLISTENER
@@ -187,10 +193,6 @@ function collisionPlayerAndObstacle() {
     }
 }
 
-
-// function drawCounter() {
-//     //draw text
-// }
 // END GAME OPTIONS
 
 function gameOver() {
@@ -213,7 +215,7 @@ function startGame() {
     myObstacle = new Obstacle(80, 80, canvas.width + 1, canvas.height - 75, 3, ctx);
     myLuckstacle = new Luckstacle(80, 80, canvas.width + 1, 100, 2, ctx);
     myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas);
-    myPot = new Pot(30, 30, canvas.width + 1, canvas.height - 85, 1, ctx);
+    myPot = new Pot(40, 40, canvas.width + 1, canvas.height - 85, 1, ctx);
     interval = setInterval(function () {
         update();
         drawEverything();

@@ -86,37 +86,50 @@
     font-size: 20px;
     line-height: 2.5em;
     font-family: '8-bit-pusab';
-    color: black;
+    color: rgb(59, 29, 29);
     position: absolute;
     top: 25%;
 }
 
 #win {
     display: none;
+    background-color: #FC6600;
     background-image: url("./images/winscreen.jpg");
     background-repeat: no-repeat;
-    font-size: 20px;
-    line-height: 2.5em;
+    font-size: 10px;
+    line-height: 4.5em;
     font-family: '8-bit-pusab';
     color: #FC6600;
     position: absolute;
     height: 320px;
+    text-shadow:
+    -1px -1px 0 rgb(17, 39, 17),
+    1px -1px 0 rgb(17, 39, 17),
+    -1px 1px 0 rgb(17, 39, 17),
+    1px 1px 0 rgb(17, 39, 17);
 }
 
 #greedy{
     display: none;
-    background-image: url("./images/winscreen.jpg");
+    background-image: url("./images/Clover_Background.jpg");
     background-repeat: no-repeat;
-    font-size: 20px;
-    line-height: 2.5em;
+    background-size: cover;
+    font-size: 10px;
+    line-height: 4.5em;
     font-family: '8-bit-pusab';
     color: #FC6600;
     position: absolute;
     height: 320px;
     width: 600px;
+    text-shadow:
+    -1px -1px 0 rgb(17, 39, 17),
+    1px -1px 0 rgb(17, 39, 17),
+    -1px 1px 0 rgb(17, 39, 17),
+    1px 1px 0 rgb(17, 39, 17);
 }
+
 #greedy h1{
-    margin: 25% 0;
+    margin: 15% 0;
 }
 
 .tryagainbutton {
