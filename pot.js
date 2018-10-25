@@ -9,8 +9,8 @@ class Pot {
         this.color = 'yellow'
         this.frames = 0
         this.isCrashed = false
-        //this.img = new Image(),
-        //this.img.src = url,
+        this.img = new Image()
+        this.img.src = '../images/goldpot_left.png'
     }
 
     update() {

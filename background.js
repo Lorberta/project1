@@ -7,12 +7,13 @@
 // ctx.canvas.width = 600;
 
 class Background {
-  constructor(ctx, url, speed) {
+  constructor(ctx, img, speed) {
     this.ctx = ctx,
       this.speed = speed,
-      this.img = new Image(),
-      this.img.src = url,
-      this.x = 0,
+      this.img = img
+    // this.img = new Image(),
+    // this.img.src = url,
+    this.x = 0,
       this.height = this.ctx.canvas.height,
       this.width = this.height * this.img.width / this.img.height
   }

@@ -1,6 +1,110 @@
 
-#start{
-    height: 600;
+
+@font-face { font-family: '3Dventure'; src: url('./fonts/3Dventure.ttf'); }
+@font-face { font-family: '8-bit-pusab'; src: url('./fonts/8-bit-pusab.ttf'); }
+
+
+.flexstart {
+    display: flex;
+    justify-content: center;
+}
+
+#start {
+    height: 600px;
     width: 100%;
-    background-image: url("./images/goldpot.jpg")
+    background-image: url("./images/Clover_Background.jpg");
+    background-repeat: no-repeat;
+}
+
+.startbutton {
+    background-color: #4CBB17;
+    width: 140px;
+    height: 55px;
+    color: white; 
+    font-family: '3Dventure'; 
+    font-size: 35px;
+    text-shadow:
+    -1px -1px 0 rgb(17, 39, 17),
+    1px -1px 0 rgb(17, 39, 17),
+    -1px 1px 0 rgb(17, 39, 17),
+    1px 1px 0 rgb(17, 39, 17);;
+}
+
+#start h1 {
+    font-size: 100px;
+    font-family: '3Dventure';
+    color: #FFD300;
+    text-shadow:
+		-1px -1px 0 rgb(17, 39, 17),
+		1px -1px 0 rgb(17, 39, 17),
+		-1px 1px 0 rgb(17, 39, 17),
+		1px 1px 0 rgb(17, 39, 17);
+}
+
+#start .p1 {
+    font-size: 15px;
+    line-height: 2.5em;
+    font-family: '8-bit-pusab';
+    color: rgb(4, 52, 4);
+}
+
+#start .p2 {
+    font-size: 10px;
+    line-height: 2.5em;
+    font-family: '8-bit-pusab';
+    color: rgb(4, 52, 4);
+   
+}
+
+#start .p3 {
+    font-size: 15px;
+    line-height: 2.5em;
+    font-family: '8-bit-pusab';
+    color: rgb(8, 19, 8);
+}
+
+#unlucky {
+    font-size: 20px;
+    line-height: 2.5em;
+    font-family: '8-bit-pusab';
+    color: black;
+}
+
+#win {
+    height: 600px;
+    width: 100%;
+    background-image: url("./images/winscreen.jpg");
+    background-repeat: no-repeat;
+    font-size: 20px;
+    line-height: 2.5em;
+    font-family: '8-bit-pusab';
+    color: #FC6600;
+}
+
+.tryagainbutton {
+    background-color: #4CBB17;
+    width: 250px;
+    height: 55px;
+    color: white; 
+    font-family: '3Dventure'; 
+    font-size: 35px;
+    text-shadow:
+    -1px -1px 0 rgb(17, 39, 17),
+    1px -1px 0 rgb(17, 39, 17),
+    -1px 1px 0 rgb(17, 39, 17),
+    1px 1px 0 rgb(17, 39, 17);;
+}
+
+.playagainbutton {
+    background-color: #4CBB17;
+    width: 250px;
+    height: 55px;
+    color: white; 
+    font-family: '3Dventure'; 
+    font-size: 35px;
+    text-shadow:
+    -1px -1px 0 rgb(17, 39, 17),
+    1px -1px 0 rgb(17, 39, 17),
+    -1px 1px 0 rgb(17, 39, 17),
+    1px 1px 0 rgb(17, 39, 17);;
 }

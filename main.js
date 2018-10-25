@@ -6,27 +6,39 @@ var width = canvas.width
 var height = canvas.height
 
 var frames = 0
-var counter = 5;
+var counter = 1;
+
+var background = new Image();
+background.src = "./images/bg2.jpg"
+
+var sky = new Image();
+sky.src = "./images/clouds_lg.png"
 
 var myObstacles = [];
 var myLuckstacles = [];
 
-
+$("#game").hide();
 //BACKGROUND
 
-var bg = new Background(ctx, '../images/bg2.jpg', 1)
-var bgClouds = new Background(ctx, '../images/clouds_lg.png', 2)
-var myCloud = new Cloud(65, 80, canvas.width + 1, 50, 5, ctx)
-var myObstacle = new Obstacle(80, 80, canvas.width + 1, canvas.height - 75, 3, ctx)
-var myLuckstacle = new Luckstacle(80, 80, canvas.width + 1, 100, 2, ctx)
-var myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
-var myPot = new Pot(30, 30, canvas.width + 1, canvas.height - 85, 1, ctx)
+var bg, bgClouds, myCloud, myObstacle, myLuckstacle, myPlayer, myPot, interval;
 
 
-var interval = setInterval(function () {
-    update()
-    drawEverything()
-}, 1000 / 30)
+$(".startbutton").click(function () {
+    $("#start").hide();
+    $("#game").show();
+    bg = new Background(ctx, background, 1)
+    bgClouds = new Background(ctx, sky, 2)
+    myCloud = new Cloud(65, 90, canvas.width + 1, 25, 5, ctx)
+    myObstacle = new Obstacle(80, 80, canvas.width + 1, canvas.height - 75, 3, ctx)
+    myLuckstacle = new Luckstacle(80, 80, canvas.width + 1, 100, 2, ctx)
+    myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
+    myPot = new Pot(30, 30, canvas.width + 1, canvas.height - 85, 1, ctx)
+    interval = setInterval(function () {
+        update()
+        drawEverything()
+    }, 1000 / 30)
+});
+
 
 function update() {
     frames++
@@ -47,7 +59,7 @@ function update() {
     if (counter >= 7 && myPot.x >= canvas.width - myPot.width) {
         myPot.update()
     }
-    if (counter >= 7 && myCloud.x >= canvas.width - 50) {
+    if (counter >= 7 && myCloud.x >= canvas.width - 70) {
         myCloud.update()
     }
 
@@ -202,3 +214,5 @@ function gameWon() {
         return clearInterval(interval);
     }
 }
+
+//$("#game").hide();
