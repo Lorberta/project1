@@ -74,9 +74,11 @@ function drawEverything() {
         myLuckstacles[i].draw();
     }
 
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "orange"
-    ctx.fillText("LUCK" + counter, 10, 50);
+    // SHOW COUNTER
+    ctx.font = "10px '8-bit-pusab'";
+    ctx.fillStyle = "orange";
+    ctx.fillText("LUCK", 10, 15);
+    ctx.fillText(counter, 10, 30)
 
 
     myPlayer.draw()
