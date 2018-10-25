@@ -26,17 +26,8 @@ var bg, bgClouds, myCloud, myObstacle, myLuckstacle, myPlayer, myPot, interval;
 $(".startbutton").click(function () {
     $("#start").hide();
     $("#game").show();
-    bg = new Background(ctx, background, 1)
-    bgClouds = new Background(ctx, sky, 2)
-    myCloud = new Cloud(65, 90, canvas.width + 1, 25, 5, ctx)
-    myObstacle = new Obstacle(80, 80, canvas.width + 1, canvas.height - 75, 3, ctx)
-    myLuckstacle = new Luckstacle(80, 80, canvas.width + 1, 100, 2, ctx)
-    myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas)
-    myPot = new Pot(30, 30, canvas.width + 1, canvas.height - 85, 1, ctx)
-    interval = setInterval(function () {
-        update()
-        drawEverything()
-    }, 1000 / 30)
+    startGame();
+
 });
 
 
@@ -55,7 +46,7 @@ function update() {
     clearGoneLuckstacles()
 
     myPlayer.update()
-
+    //drawCounter()
     if (counter >= 7 && myPot.x >= canvas.width - myPot.width) {
         myPot.update()
     }
@@ -66,6 +57,7 @@ function update() {
     collisionPlayerAndObstacle()
 
     gameOver()
+    gameWon()
 }
 
 function drawEverything() {
@@ -147,14 +139,12 @@ controller = {
                 if (controller.left) {
                     myPlayer.moveLeft()
                 }
-                console.log("left from keydown")
                 break;
             case 38: //the up arrow key
                 controller.up = key_state;
                 if (controller.up && myPlayer.jumping == false) {
                     myPlayer.moveUp()
                 }
-                console.log("up from keydown")
                 break;
             case 39: //the right arrow key
                 controller.right = key_state;
@@ -162,7 +152,6 @@ controller = {
 
                     myPlayer.moveRight()
                 }
-                console.log("right from keydown")
                 break;
         }
     }
@@ -194,25 +183,60 @@ function collisionPlayerAndObstacle() {
             // || (myPlayer.x > (myObstacle.x + myObstacle.width)) && ((myPlayer.x + myPlayer.width) >= myObstacle.x) //redo collision from behind
             myLuckstacles[i].isCrashed = true
             counter++;
-            console.log("crashing luckstacle", myLuckstacles[i].isCrashed, i)
         }
     }
-    console.log('counter' + counter)
 }
 
+
+// function drawCounter() {
+//     //draw text
+// }
 // END GAME OPTIONS
 
 function gameOver() {
     if (counter == 0) {
+        $("#unlucky").show();
         return clearInterval(interval);
     }
+}
+
+$(".tryagainbutton").click(function () {
+    $("#unlucky").hide();
+    startGame();
+    resetValues()
+});
+
+function startGame() {
+    bg = new Background(ctx, background, 1);
+    bgClouds = new Background(ctx, sky, 2);
+    myCloud = new Cloud(65, 90, canvas.width + 1, 25, 5, ctx);
+    myObstacle = new Obstacle(80, 80, canvas.width + 1, canvas.height - 75, 3, ctx);
+    myLuckstacle = new Luckstacle(80, 80, canvas.width + 1, 100, 2, ctx);
+    myPlayer = new Player(20, 20, 30, 0, 0, ctx, canvas);
+    myPot = new Pot(30, 30, canvas.width + 1, canvas.height - 85, 1, ctx);
+    interval = setInterval(function () {
+        update();
+        drawEverything();
+    }, 1000 / 30);
+}
+
+function resetValues() {
+    myObstacles = []
+    myLuckstacles = []
+    frames = 0
+    counter = 1;
 }
 
 function gameWon() {
-    if (((myPlayer.x + myPlayer.width) > myPot.x && myPlayer.x < (myPot.x + myPot.width)) && (myPlayer.y + myPlayer.height >= myPot.y) && !myPot.isCrashed) {
+    if (myPlayer.x + myPlayer.width > myPot.x && myPlayer.x < myPot.x + myPot.width && myPlayer.y + myPlayer.height >= myPot.y && !myPot.isCrashed) {
         myPot.isCrashed = true
+        clearInterval(interval);
+        $("#win").show();
         return clearInterval(interval);
     }
 }
+$(".playagainbutton").click(function () {
+    $("#win").hide();
+    $("#greedy").show();
 
-//$("#game").hide();
+});

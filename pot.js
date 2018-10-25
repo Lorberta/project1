@@ -10,7 +10,7 @@ class Pot {
         this.frames = 0
         this.isCrashed = false
         this.img = new Image()
-        this.img.src = '../images/goldpot_left.png'
+        this.img.src = '../images/clover.png'
     }
 
     update() {
@@ -20,8 +20,8 @@ class Pot {
 
     draw() {
         this.ctx.fillStyle = this.color;
-        this.ctx.fillRect(this.x, this.y, this.width, this.height)
-        //this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+        //this.ctx.fillRect(this.x, this.y, this.width, this.height)
+        this.ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
         //ctx.stroke();
         //ctx.fill();
     }

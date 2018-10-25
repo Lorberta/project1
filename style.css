@@ -7,13 +7,19 @@
 .flexstart {
     display: flex;
     justify-content: center;
+    align-content: center
 }
+
 
 #start {
     height: 600px;
     width: 100%;
+    text-align: center;
+
     background-image: url("./images/Clover_Background.jpg");
     background-repeat: no-repeat;
+    background-size: cover;
+    
 }
 
 .startbutton {
@@ -63,22 +69,54 @@
     color: rgb(8, 19, 8);
 }
 
+
+.game-container{
+    position: absolute;
+    text-align: center;
+    width: 600px;
+    height: 320px;
+    z-index: -2;
+}
+#game{
+    position: absolute;
+    text-align: center;
+}
 #unlucky {
+    display: none;
     font-size: 20px;
     line-height: 2.5em;
     font-family: '8-bit-pusab';
     color: black;
+    position: absolute;
+    top: 25%;
 }
 
 #win {
-    height: 600px;
-    width: 100%;
+    display: none;
     background-image: url("./images/winscreen.jpg");
     background-repeat: no-repeat;
     font-size: 20px;
     line-height: 2.5em;
     font-family: '8-bit-pusab';
     color: #FC6600;
+    position: absolute;
+    height: 320px;
+}
+
+#greedy{
+    display: none;
+    background-image: url("./images/winscreen.jpg");
+    background-repeat: no-repeat;
+    font-size: 20px;
+    line-height: 2.5em;
+    font-family: '8-bit-pusab';
+    color: #FC6600;
+    position: absolute;
+    height: 320px;
+    width: 600px;
+}
+#greedy h1{
+    margin: 25% 0;
 }
 
 .tryagainbutton {
