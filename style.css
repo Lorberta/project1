@@ -83,8 +83,8 @@
 }
 #unlucky {
     display: none;
-    font-size: 20px;
-    line-height: 2.5em;
+    line-height: 4.5em;
+    font-size: 10px;
     font-family: '8-bit-pusab';
     color: rgb(59, 29, 29);
     position: absolute;
@@ -96,7 +96,7 @@
     background-color: #FC6600;
     background-image: url("./images/winscreen.jpg");
     background-repeat: no-repeat;
-    font-size: 10px;
+    font-size: 20px;
     line-height: 4.5em;
     font-family: '8-bit-pusab';
     color: #FC6600;

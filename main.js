@@ -2,6 +2,9 @@ var canvas = document.querySelector('canvas')
 var ctx = canvas.getContext('2d')
 //OR context = document.querySelector('canvas').getContext('2d');
 
+var myStartScreenSound = new Audio("./sound/TheFolkInn.wav");
+var myGameSound = new Audio("./sound/Shamroctoroc8bit.mp3");
+
 var width = canvas.width
 var height = canvas.height
 
@@ -13,8 +16,6 @@ background.src = "./images/bg2.jpg"
 
 var sky = new Image();
 sky.src = "./images/clouds_lg.png"
-
-
 
 
 var myObstacles = [];
@@ -30,7 +31,8 @@ $(".startbutton").click(function () {
     $("#start").hide();
     $("#game").show();
     startGame();
-
+    myGameSound.loop = true;
+    myGameSound.play();
 });
 
 
@@ -75,8 +77,8 @@ function drawEverything() {
     }
 
     // SHOW COUNTER
-    ctx.font = "10px '8-bit-pusab'";
-    ctx.fillStyle = "orange";
+    ctx.font = "8px '8-bit-pusab'";
+    ctx.fillStyle = 'brown';
     ctx.fillText("LUCK", 10, 15);
     ctx.fillText(counter, 10, 30)
 
@@ -200,12 +202,20 @@ function collisionPlayerAndObstacle() {
 function gameOver() {
     if (counter == 0) {
         $("#unlucky").show();
+        myGameSound.pause();
+        myStartScreenSound.loop = true;
+        myStartScreenSound.play();
+
         return clearInterval(interval);
     }
 }
 
 $(".tryagainbutton").click(function () {
     $("#unlucky").hide();
+    myStartScreenSound.pause();
+    myGameSound.loop = true;
+    myGameSound.play();
+
     startGame();
     resetValues()
 });
@@ -243,4 +253,6 @@ $(".playagainbutton").click(function () {
     $("#win").hide();
     $("#greedy").show();
 
+    myGameSound.loop = true;
+    myGameSound.play();
 });

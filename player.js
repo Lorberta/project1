@@ -7,15 +7,29 @@
 
 class Player {
     constructor(height, width, x, y, delay, ctx, canvas) {
-        this.height = height
-        this.width = width
         this.jumping = true
         this.ctx = ctx
-        this.x = x //center of the canvas
-        this.y = canvas.height - 75
         this.x_velocity = 0
         this.y_velocity = 0
         this.numberOfJumps = 0
+        this.curFrame = 0
+        this.spriteWidth = 84
+        this.spriteHeight = 57
+        this.rows = 2
+        this.cols = 5
+        this.height = this.spriteHeight / this.rows
+        this.width = this.spriteWidth / this.cols
+        this.x = x //center of the canvas
+        this.y = canvas.height - 75 - this.height
+        this.srcY = this.spriteHeight / 2
+        this.srcX = 0
+        this.speed = 20
+        this.direction = "right"
+        this.img = new Image
+        this.img.src = "./images/Leprechaun_walk.png"
+        this.moveRight()
+        this.characterInterval = setInterval(this._update.bind(this), 400)
+
     }
 
     newPos() {
@@ -28,12 +42,19 @@ class Player {
 
     // moveleft
     moveLeft() {
+        this.curFrame = 0
+        this.frameCount = 5
+        this.curRow = 0
         this.x_velocity -= 0.5;
         this.newPos()
     }
 
     // moveright
     moveRight() {
+        this.curFrame = 0
+        this.frameCount = 5
+        this.curRow = 1
+        this.direction = "right"
         this.x_velocity += 0.5;
         this.newPos()
     }
@@ -41,7 +62,6 @@ class Player {
     // jumping
     moveUp() {
         this.y_velocity -= 20;
-
         this.numberOfJumps++
         if (this.numberOfJumps >= 2) {
             this.jumping = true;
@@ -54,12 +74,26 @@ class Player {
 
 
     draw() {
-        this.ctx.save();
-        this.ctx.fillStyle = "#FF8002"
-        this.ctx.fillRect(this.x, this.y, this.width, this.height);
-        this.ctx.restore();
+        // this.ctx.save();
+        // this.ctx.fillStyle = "#FF8002"
+        // this.ctx.fillRect(this.x, this.y, this.width, this.height);
+        // this.ctx.restore();
+        this.ctx.drawImage(
+            this.img,
+            this.srcX, this.srcY,
+            this.width,
+            this.height,
+            this.x,
+            this.y,
+            this.width,
+            this.height);
     };
 
+    _update() {
+        this.curFrame = ++this.curFrame % this.frameCount
+        this.srcX = this.curFrame * this.width
+        this.srcY = this.height * this.curRow
+    }
 
     update() {
         //     //gravity:
@@ -97,6 +131,7 @@ class Player {
             this.x = canvas.width - this.width;
             this.x_velocity = 0
         }
+        this.ctx.clearRect(this.x, this.y, this.width, this.height)
     }
 }
 
