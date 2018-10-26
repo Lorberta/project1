@@ -10,7 +10,7 @@ class Obstacle {
         this.frames = 0
         this.isCrashed = false
         this.img = new Image()
-        var obstaclePool = ['../images/catwalk4.png', '../images/rake1.png']
+        var obstaclePool = ['./images/catwalk4.png', './images/rake1.png']
         this.img.src = obstaclePool[Math.floor(Math.random() * obstaclePool.length)]
     }
 
