@@ -10,7 +10,7 @@ class Luckstacle {
         this.frames = 0
         this.isCrashed = false
         this.img = new Image()
-        this.img.src = '../images/clover.png'
+        this.img.src = './images/clover.png'
     }
 
     update() {

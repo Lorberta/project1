@@ -252,7 +252,7 @@ function gameWon() {
 $(".playagainbutton").click(function () {
     $("#win").hide();
     $("#greedy").show();
-
+    myStartScreenSound.pause();
     myGameSound.loop = true;
     myGameSound.play();
 });
