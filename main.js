@@ -244,6 +244,9 @@ function resetValues() {
 function gameWon() {
     if (myPlayer.x + myPlayer.width > myPot.x && myPlayer.x < myPot.x + myPot.width && myPlayer.y + myPlayer.height >= myPot.y && !myPot.isCrashed) {
         myPot.isCrashed = true
+        myGameSound.pause();
+        myStartScreenSound.loop = true;
+        myStartScreenSound.play();
         clearInterval(interval);
         $("#win").show();
         return clearInterval(interval);
@@ -252,7 +255,4 @@ function gameWon() {
 $(".playagainbutton").click(function () {
     $("#win").hide();
     $("#greedy").show();
-    myStartScreenSound.pause();
-    myGameSound.loop = true;
-    myGameSound.play();
 });
